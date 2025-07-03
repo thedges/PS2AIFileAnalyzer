@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="title" type="String" default="File Analyzer" label="Card Title" description="The title for the card"></property>
+            <property name="subTitle" type="String" default="Let AI review your files" label="Card Sub-title" description="The sub-title of the card"></property>
+            <property name="btnAnalyzeText" type="String" default="Analyze File" label="Analyze Button Label" description="The label text of the analyze button"></property>
+            <property name="defPrompt" type="String" default="" label="Default Prompt Template" description="The api name of prompt template to use by default"></property>
+            <property name="recFieldname" type="String" default="" label="Field API Name To Store AI Results" description="The api name of field to store AI results"></property>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
