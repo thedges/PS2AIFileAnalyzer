@@ -21,13 +21,13 @@ This repo provides a demo LWC component to perform AI prompt analysis on files a
 The component will first load with a list of Prompt Templates you can choose along with a list of files that are attached to the record. 
 ![alt text](./File-Analyzer-1.jpg "PS2AIFileAnalyzer Sample 1")
 
-If you need to upload a file, click the file icon in upper-right of component and you will get an area to upload file.
-![alt text](./File-Analyzer-6.jpg "PS2AIFileAnalyzer Sample 6")
-
 Once you have selected a prompt template and a file, the analyze button will become active for your to analyze a file.
 ![alt text](./File-Analyzer-2.jpg "PS2AIFileAnalyzer Sample 2")
 
-Click the button and the component will show a spinner while file analysis is being performed.
+If you need to upload a file, click the file icon in upper-right of component and you will get an area to upload file.
+![alt text](./File-Analyzer-6.jpg "PS2AIFileAnalyzer Sample 6")
+
+Click the analyze button and the component will show a spinner while file analysis is being performed.
 ![alt text](./File-Analyzer-3.jpg "PS2AIFileAnalyzer Sample 3")
 
 Once the results from the analysis are received, they will be displayed. At the bottom are buttons to attach them to the record (i.e. insert into a defined field) or copy to the clipboard.
@@ -36,18 +36,14 @@ Once the results from the analysis are received, they will be displayed. At the 
 
 
 # Configuration
+The following are configuration parameters for the component:
 
 | Parameter | Description |
 |-----------|-------------|
-| <b>SObject Field For Latitude</b> | SObject field that stores the latitude value |
-| <b>SObject Field For Longitude</b> | SObject field that stores the longitude value |
-| <b>SObject Field For Full Address</b> | SObject field that stores full address in one value |
-| <b>SObject Field For Street</b> | SObject field that stores the street |
-| <b>SObject Field For City</b> | SObject field that stores the city |
-| <b>SObject Field For State</b> | SObject field that stores the state |
-| <b>SObject Field For Postal/Zipcode</b> | SObject field that stores postal code |
-| <b>Map Center Latitude</b> | Default latitude for center of map |
-| <b>Map Center Longitude</b> | Default longitude for center of map |
-
+| <b>Card Title</b> | A title to display at the top of the card |
+| <b>Card Sub-title</b> | A sub-title to display under the card title |
+| <b>Analyze Button Label</b> | The label for the analyze file button |
+| <b>Default Prompt Template</b> | The developer API name of a default prompt template. If this is set, a list of prompt templates will not be shown. |
+| <b>Field API Name To Store AI Results</b> | The field API name to store results in if you select the "Save to <object>" button on the file analysis results page. |
 
 
