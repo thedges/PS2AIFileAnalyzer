@@ -2,7 +2,7 @@
 
 THIS SOFTWARE IS COVERED BY [THIS DISCLAIMER](https://raw.githubusercontent.com/thedges/Disclaimer/master/disclaimer.txt).
 
-This repo provides a demo LWC component to perform AI prompt analysis on files attached to a record
+This repo provides a demo LWC component to perform AI prompt analysis on files attached to a record. Want to give thanks to Rajeev Shekhar who provided the original LWC component that I then tweaked for my needs.
 
 # Installation
 1. Install this repo to your target demo org using the below link.
@@ -18,13 +18,22 @@ This repo provides a demo LWC component to perform AI prompt analysis on files a
 
 
 # Sample Screenshots
-
+The component will first load with a list of Prompt Templates you can choose along with a list of files that are attached to the record. 
 ![alt text](./File-Analyzer-1.jpg "PS2AIFileAnalyzer Sample 1")
+
+If you need to upload a file, click the file icon in upper-right of component and you will get an area to upload file.
+![alt text](./File-Analyzer-6.jpg "PS2AIFileAnalyzer Sample 6")
+
+Once you have selected a prompt template and a file, the analyze button will become active for your to analyze a file.
 ![alt text](./File-Analyzer-2.jpg "PS2AIFileAnalyzer Sample 2")
+
+Click the button and the component will show a spinner while file analysis is being performed.
 ![alt text](./File-Analyzer-3.jpg "PS2AIFileAnalyzer Sample 3")
+
+Once the results from the analysis are received, they will be displayed. At the bottom are buttons to attach them to the record (i.e. insert into a defined field) or copy to the clipboard.
 ![alt text](./File-Analyzer-4.jpg "PS2AIFileAnalyzer Sample 4")
 ![alt text](./File-Analyzer-5.jpg "PS2AIFileAnalyzer Sample 5")
-![alt text](./File-Analyzer-6.jpg "PS2AIFileAnalyzer Sample 6")
+
 
 # Configuration
 
