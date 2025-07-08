@@ -23,41 +23,51 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
     @track uploadedFileName;
     @track aiResult = '';
     @track errorMessage = '';
-    @track isLoading = false;
+    @track isAnalyzing = false;
     @track isFileUpload = false;
     //@track disableAnalyzeButton = true;
 
     @track showActionToast = false;
     @track actionToastMessage = '';
 
-    @track templateOptions;
+    @track templateOptions = null;
     templateSelection;
-    fileOptions;
+    fileOptions = null;
     fileSelection;
     objectName;
 
     connectedCallback() {
-        this.templateSelection = this.defPrompt == null || this.defPrompt == '' ? null : this.defPrompt;
-    
         this.loadObjectName();
         this.loadTemplates();
         this.loadFiles();
     }
 
+    get isLoading() {
+        return ((this.templateOptions != null || this.templateSelection != null) && this.fileOptions != null ? false : true);
+    }
+
     loadTemplates() {
-        getPromptTemplateList()
-            .then(result => {
-                console.log(result);
-                this.templateOptions = JSON.parse(result);
-            })
-            .catch(error => {
-                console.log(error);
-                const message = this.getErrorMessage(error);
-                this.showToast('Error', message, 'error', 'sticky');
-            });
+        this.templateOptions = null;
+        this.templateSelection = this.defPrompt == null || this.defPrompt == '' ? null : this.defPrompt;
+
+        if (this.defPrompt == null || this.defPrompt == '' ) {
+            getPromptTemplateList()
+                .then(result => {
+                    console.log(result);
+                    this.templateOptions = JSON.parse(result);
+                })
+                .catch(error => {
+                    console.log(error);
+                    const message = this.getErrorMessage(error);
+                    this.showToast('Error', message, 'error', 'sticky');
+                });
+        }
     }
 
     loadFiles() {
+        this.fileOptions = null;
+        this.fileSelection = null;
+
         getRecordDocuments({ recordId: this.recordId })
             .then(result => {
                 console.log(result);
@@ -99,7 +109,9 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
     }
 
     handleRefresh(event) {
-
+        this.aiResult = '';
+        this.loadTemplates();
+        this.loadFiles();
     }
 
     handleClear(event) {
@@ -149,7 +161,7 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
             return;
         }
         */
-        this.isLoading = true;
+        this.isAnalyzing = true;
         this.errorMessage = '';
         this.aiResult = '';
         try {
@@ -177,7 +189,7 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
                 'error'
             );
         } finally {
-            this.isLoading = false;
+            this.isAnalyzing = false;
             this.disableAnalyzeButton = true;
         }
     }
@@ -195,7 +207,7 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
                 const message = this.getErrorMessage(error);
                 this.showToast('Error', message, 'error', 'sticky');
             });
-        
+
     }
 
     handleCopyToClipboard() {

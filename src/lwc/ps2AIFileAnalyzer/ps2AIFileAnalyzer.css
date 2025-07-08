@@ -112,14 +112,14 @@
     --slds-c-icon-color-foreground-default: #e43c54;
 }
 
-.ai-loading {
+.ai-processing {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 0.9rem;
 }
 
-.ai-loader {
+.ai-processing-loader {
     border: 5px solid #ffe0e5;
     border-top: 5px solid #e43c54;
     border-radius: 50%;

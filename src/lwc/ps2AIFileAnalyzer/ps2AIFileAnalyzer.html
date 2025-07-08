@@ -47,6 +47,10 @@
       </div>
     </div>
 
+     <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+
     <div class="slds-p-bottom_small">
       <template if:true={isPromptDefault}>
         <lightning-combobox
@@ -104,10 +108,10 @@
       onclick={handleAnalyzeFiles}
     ></lightning-button>
 
-    <!-- Loading Spinner -->
-    <template if:true={isLoading}>
-      <div class="ai-loading">
-        <div class="ai-loader"></div>
+    <!-- Analyzing Spinner -->
+    <template if:true={isAnalyzing}>
+      <div class="ai-processing">
+        <div class="ai-processing-loader"></div>
         <span class="ai-analyzing">Analyzing with AI…</span>
       </div>
     </template>
