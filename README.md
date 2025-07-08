@@ -8,7 +8,7 @@ This repo provides a demo LWC component to perform AI prompt analysis on files a
 1. Install this repo to your target demo org using the below link.
 2. For PS2AIFileAnalyzer component...
    * Assign the "PS2AIFileAnalyzer" perm set to the user(s) that will use this component.
-   * Edit a page and find the "PS2 Record Locator" component in the custom LWC component list and drop on your page.
+   * Edit a page and find the "PS2 AI File Analyzer" component in the custom LWC component list and drop on your page.
    * Configure the parameters for the component for your environment.
 
 <a href="https://githubsfdeploy.herokuapp.com?owner=thedges&repo=PS2AIFileAnalyzer&ref=main">
