@@ -36,10 +36,12 @@ Once the results from the analysis are received, they will be displayed. At the 
 ![alt text](./File-Analyzer-5.jpg "PS2AIFileAnalyzer Sample 5")
 
 # Prompt Template
-Create a Flex Prompt Template and one input parameter of type "ContentDocument". Provide a name of example "fileInput" as shown in the diagram.
+Create a Flex Prompt Template and one input parameter of type "ContentDocument". Provide a name of exactly "fileInput" as shown in the diagram.
+
 ![alt text](./File-Analyzer-7.jpg "PS2AIFileAnalyzer Sample 7")
 
 In your Prompt Template, make sure you reference the Content Document Id like the following:
+
 ![alt text](./File-Analyzer-8.jpg "PS2AIFileAnalyzer Sample 8")
 
 # Configuration
