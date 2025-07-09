@@ -58,6 +58,9 @@ The following are configuration parameters for the component:
 | <b>Card Sub-title</b> | A sub-title to display under the card title |
 | <b>Analyze Button Label</b> | The label for the analyze file button |
 | <b>Default Prompt Template</b> | The developer API name of a default prompt template. If this is set, a list of prompt templates will not be shown. |
+| <b>Filter Prompts Based On Keyword</b> | Only includes prompts that prompt description includes keyword. |
 | <b>Field API Name To Store AI Results</b> | The field API name to store results in if you select the "Save to <object>" button on the file analysis results page. |
+| <b>Remove Lines With Triple Quotes (```)</b> | Remove any lines that start with triple quotes. |
+| <b>Add HTML Pre Block For Plain Text</b> | Add <pre> HTML block around plain text to reserve formatting. |
 
 
