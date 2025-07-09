@@ -5,7 +5,7 @@ public without sharing class PS2AIFileAnalyzerController {
     List<Map<String, Object>> options = new List<Map<String, Object>>();
 
     String baseUrl = URL.getOrgDomainURL().toExternalForm();
-    String endpoint = baseUrl + '/services/data/v62.0/einstein/prompt-templates?type=einstein_gpt__flex';
+    String endpoint = baseUrl + '/services/data/v62.0/einstein/prompt-templates?type=einstein_gpt__flex&fields=Description,MasterLabel,DeveloperName&IsActive=true';
 
     HttpRequest req = new HttpRequest();
     req.setEndpoint(endpoint);
@@ -29,6 +29,12 @@ public without sharing class PS2AIFileAnalyzerController {
 
         tempMap.put('label', pr.fields.MasterLabel.value);
         tempMap.put('value', pr.fields.DeveloperName.value);
+
+        if (pr.fields.Description != null && pr.fields.Description != null)
+        {
+            tempMap.put('description', pr.fields.Description.value);
+        }
+        
         options.add(tempMap);
       }
 
@@ -167,6 +173,8 @@ public without sharing class PS2AIFileAnalyzerController {
     public FieldDetail Id;
     @AuraEnabled
     public FieldDetail DeveloperName;
+    @AuraEnabled
+    public FieldDetail Description;
   }
 
   public class FieldDetail {

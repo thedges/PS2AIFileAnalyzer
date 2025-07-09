@@ -193,3 +193,9 @@
     80% { opacity: 1; }
     100% { opacity: 0; }
 }
+
+pre {
+  white-space: pre-wrap;     /* Makes the text wrap */
+  word-wrap: break-word;     /* Break long words if needed */
+  font-size: 11px;
+}

@@ -2,6 +2,7 @@
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>64.0</apiVersion>
     <isExposed>true</isExposed>
+    <masterLabel>PS2 AI File Analyzer</masterLabel>
     <targets>
         <target>lightning__RecordPage</target>
     </targets>
@@ -11,7 +12,10 @@
             <property name="subTitle" type="String" default="Let AI review your files" label="Card Sub-title" description="The sub-title of the card"></property>
             <property name="btnAnalyzeText" type="String" default="Analyze File" label="Analyze Button Label" description="The label text of the analyze button"></property>
             <property name="defPrompt" type="String" default="" label="Default Prompt Template" description="The api name of prompt template to use by default"></property>
+            <property name="filterPrompt" type="String" default="" label="Filter Prompts Based On Keyword" description="Only includes prompts that prompt description includes keyword"></property>
             <property name="recFieldname" type="String" default="" label="Field API Name To Store AI Results" description="The api name of field to store AI results"></property>
+            <property name="removeQuotes" type="Boolean" default="false" label="Remove Lines With Triple Quotes (```)" description="Remove any lines that start with triple quotes"></property>
+            <property name="addPreBlock" type="Boolean" default="false" label="Add HTML Pre Block For Plain Text" description="Add pre block to plain text to preserve formatting"></property>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

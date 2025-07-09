@@ -47,9 +47,9 @@
       </div>
     </div>
 
-     <template if:true={isLoading}>
-            <lightning-spinner alternative-text="Loading"></lightning-spinner>
-        </template>
+    <template if:true={isLoading}>
+      <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
 
     <div class="slds-p-bottom_small">
       <template if:true={isPromptDefault}>
@@ -131,9 +131,17 @@
     <template if:true={aiResult}>
       <div class="ai-result">
         <lightning-icon icon-name="utility:bot" size="small"></lightning-icon>
-        <lightning-formatted-rich-text
-          value={aiResult}
-        ></lightning-formatted-rich-text>
+        <template if:true={containsHTML}>
+          <lightning-formatted-rich-text
+            value={aiResult}
+          ></lightning-formatted-rich-text>
+        </template>
+        <template if:false={containsHTML}>
+          <pre contenteditable="false">
+            {aiResult}
+        </pre
+          >
+        </template>
       </div>
       <div class="ai-actions-group">
         <lightning-button-group>

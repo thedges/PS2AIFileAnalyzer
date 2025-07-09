@@ -2,6 +2,7 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>PS2AIFileAnalyzerController</members>
+        <members>PS2PromptMgr</members>
         <name>ApexClass</name>
     </types>
     <types>

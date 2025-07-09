@@ -15,8 +15,13 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
     @api btnAnalyzeText = 'Analyze File';
 
     @api defPrompt = null;
+    @api filterPrompt = null;
 
     @api recFieldname = null;
+
+    @api removeQuotes = false;
+    @api addPreBlock = false;
+
 
 
     @track uploadedFileId;
@@ -46,15 +51,48 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
         return ((this.templateOptions != null || this.templateSelection != null) && this.fileOptions != null ? false : true);
     }
 
+    sortJsonByLabel(jsonData) {
+        // Create a copy of the array to avoid modifying the original
+        const sortedData = [...jsonData];
+
+        sortedData.sort((a, b) => {
+            const labelA = a.label ? a.label.toLowerCase() : '';
+            const labelB = b.label ? b.label.toLowerCase() : '';
+
+            if (labelA < labelB) {
+                return -1;
+            }
+            if (labelA > labelB) {
+                return 1;
+            }
+            return 0; // labels are equal
+        });
+
+        return sortedData;
+    }
+
     loadTemplates() {
+        var tmpRes;
+
         this.templateOptions = null;
         this.templateSelection = this.defPrompt == null || this.defPrompt == '' ? null : this.defPrompt;
 
-        if (this.defPrompt == null || this.defPrompt == '' ) {
+        if (this.defPrompt == null || this.defPrompt == '') {
             getPromptTemplateList()
                 .then(result => {
-                    console.log(result);
-                    this.templateOptions = JSON.parse(result);
+                    console.log('result=' + result);
+                    tmpRes = JSON.parse(result);
+                    tmpRes = this.sortJsonByLabel(tmpRes);
+                    console.log('tmpRes=' + JSON.stringify(tmpRes));
+                    console.log('filterPrompt=' + this.filterPrompt);
+
+                    if (this.filterPrompt != null && this.filterPrompt != '') {
+                        this.templateOptions = tmpRes.filter(item => item.description && item.description.includes(this.filterPrompt));
+                        console.log('templateOptions=' + JSON.stringify(this.templateOptions));
+                    }
+                    else {
+                        this.templateOptions = tmpRes;
+                    }
                 })
                 .catch(error => {
                     console.log(error);
@@ -167,10 +205,21 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
         try {
             const result = await analyzeFile({ promptId: this.templateSelection, fileId: this.fileSelection });
 
-            let formattedText = result.replace(/\t/g, '  ');  // Replace each tab with 2 spaces
+            console.log('result: ' + result);
+
+            let formattedText = result;
+
+            if (this.removeQuotes) formattedText = formattedText.split('\n').filter(line => !line.trim().startsWith('```')).join('\n');  // remove lines that start with ```
+
+            /*
+            formattedText = formattedText.split('\n').filter(line => line.trim() != '').join('\n');  // remove empty lines
+            formattedText = formattedText.replace(/\t/g, '  ');  // Replace each tab with 2 spaces
             formattedText = formattedText.replace(/ /g, '&nbsp;');
-            formattedText = result.replace(/\r\n/g, '<br/>'); // Use regex with 'g' for global replacement
+            formattedText = formattedText.replace(/\r\n/g, '<br/>'); // Use regex with 'g' for global replacement
             formattedText = formattedText.replace(/\n/g, '<br/>');   // Use regex with 'g' for global replacement
+            */
+
+            console.log('formattedText: ' + formattedText);
 
 
             this.aiResult = formattedText;
@@ -194,9 +243,23 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
         }
     }
 
+    wrapPreBlock(text) {
+        if (this.addPreBlock) {
+            return `<pre>\n${text}\n<\pre>`;
+        }
+        else {
+            return text;
+        }
+    }
+
     // --- Button Group Handlers ---
     handleAddToRecord() {
-        storeAIAnalysis({ recordId: this.recordId, analysisResult: this.aiResult, fieldName: this.recFieldname })
+        console.log('handleAddToRecord');
+
+        const htmlRegex = /<[^>]+>/g;
+        let tmpRes = htmlRegex.test(this.aiResult) ? this.aiResult : this.wrapPreBlock(this.aiResult);
+
+        storeAIAnalysis({ recordId: this.recordId, analysisResult: tmpRes, fieldName: this.recFieldname })
             .then(result => {
                 this.aiResult = '';
                 this.dispatchEvent(new RefreshEvent());    // refresh record screen to show updated values
@@ -208,6 +271,12 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
                 this.showToast('Error', message, 'error', 'sticky');
             });
 
+    }
+
+    get containsHTML() {
+        // Regex that matches any HTML tag
+        const htmlRegex = /<[^>]+>/g;
+        return htmlRegex.test(this.aiResult);
     }
 
     handleCopyToClipboard() {
