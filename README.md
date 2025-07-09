@@ -49,6 +49,14 @@ In your Prompt Template, make sure you reference the Content Document Id like th
 
 ![alt text](./File-Analyzer-8.jpg "PS2AIFileAnalyzer Sample 8")
 
+If you want a rich text format, use a prompt like the following that indicates you want HTML formatted response. 
+
+![alt text](./File-Analyzer-9.jpg "PS2AIFileAnalyzer Sample 9")
+
+Which should result in a response like following example
+
+![alt text](./File-Analyzer-10.jpg "PS2AIFileAnalyzer Sample 10")
+
 # Configuration
 The following are configuration parameters for the component:
 
