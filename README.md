@@ -40,6 +40,14 @@ Once the results from the analysis are received, they will be displayed. At the 
 ![alt text](./File-Analyzer-4.jpg "PS2AIFileAnalyzer Sample 4")
 ![alt text](./File-Analyzer-5.jpg "PS2AIFileAnalyzer Sample 5")
 
+If you want a rich text format, use a prompt like the following that indicates you want HTML formatted response. 
+
+![alt text](./File-Analyzer-9.jpg "PS2AIFileAnalyzer Sample 9")
+
+Which should result in a response like following example
+
+![alt text](./File-Analyzer-10.jpg "PS2AIFileAnalyzer Sample 10")
+
 # Prompt Template
 Create a Flex Prompt Template and one input parameter of type "ContentDocument". Provide a name of exactly "fileInput" as shown in the diagram.
 
@@ -49,13 +57,7 @@ In your Prompt Template, make sure you reference the Content Document Id like th
 
 ![alt text](./File-Analyzer-8.jpg "PS2AIFileAnalyzer Sample 8")
 
-If you want a rich text format, use a prompt like the following that indicates you want HTML formatted response. 
 
-![alt text](./File-Analyzer-9.jpg "PS2AIFileAnalyzer Sample 9")
-
-Which should result in a response like following example
-
-![alt text](./File-Analyzer-10.jpg "PS2AIFileAnalyzer Sample 10")
 
 # Configuration
 The following are configuration parameters for the component:
