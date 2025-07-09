@@ -19,7 +19,7 @@ This repo provides a demo LWC component to perform AI prompt analysis on files a
 
 
 # Sample Screenshots
-The component will first load with a list of Prompt Templates you can choose along with a list of files that are attached to the record. 
+The component will first load with a list of Prompt Templates you can choose along with a list of files that are attached to the record. It take a few seconds for the Prompt Template query to complete so you will see spinner during that time. Also in upper-right are a few options to 1) add file to record, 2) refresh the prompt and files drop-down options, and 3) clear AI results screen.
 
 ![alt text](./File-Analyzer-1.jpg "PS2AIFileAnalyzer Sample 1")
 
