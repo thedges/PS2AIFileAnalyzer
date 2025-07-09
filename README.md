@@ -71,6 +71,6 @@ The following are configuration parameters for the component:
 | <b>Filter Prompts Based On Keyword</b> | Only includes prompts that prompt description includes keyword. |
 | <b>Field API Name To Store AI Results</b> | The field API name to store results in if you select the "Save to <object>" button on the file analysis results page. |
 | <b>Remove Lines With Triple Quotes (```)</b> | Remove any lines that start with triple quotes. |
-| <b>Add HTML Pre Block For Plain Text</b> | Add `<pre>` HTML block around plain text to reserve formatting. |
+| <b>Add HTML Pre Block For Plain Text</b> | Add `<pre>` HTML block around plain text to preserve formatting. |
 
 
