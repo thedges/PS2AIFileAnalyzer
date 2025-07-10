@@ -22,15 +22,12 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
     @api removeQuotes = false;
     @api addPreBlock = false;
 
-
-
     @track uploadedFileId;
     @track uploadedFileName;
     @track aiResult = '';
     @track errorMessage = '';
     @track isAnalyzing = false;
     @track isFileUpload = false;
-    //@track disableAnalyzeButton = true;
 
     @track showActionToast = false;
     @track actionToastMessage = '';
@@ -102,7 +99,7 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
         }
     }
 
-    loadFiles() {
+    loadFiles(docId) {
         this.fileOptions = null;
         this.fileSelection = null;
 
@@ -110,6 +107,7 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
             .then(result => {
                 console.log(result);
                 this.fileOptions = JSON.parse(result);
+                if (docId != null) this.fileSelection = docId;
             })
             .catch(error => {
                 console.log(error);
@@ -178,17 +176,19 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
     fileUploadHandler(event) {
         const uploadedFiles = event.detail.files;
         if (uploadedFiles && uploadedFiles.length > 0) {
-            this.fileSelection = uploadedFiles[0].documentId;
+            
             //this.uploadedFileName = uploadedFiles[0].name;
 
-            this.loadFiles();
+            this.loadFiles(uploadedFiles[0].documentId);
             this.isFileUpload = false;
 
+            /*
             this.showToastMessage(
                 'File Uploaded',
                 `${this.uploadedFileName} has been uploaded successfully`,
                 'success'
             );
+            */
         }
     }
 
@@ -232,7 +232,7 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
                     'success'
                 );
             }
-                */
+            */
         } catch (err) {
             this.errorMessage =
                 (err && err.body && err.body.message) ||
@@ -244,7 +244,6 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
             );
         } finally {
             this.isAnalyzing = false;
-            //this.disableAnalyzeButton = true;
         }
     }
 
