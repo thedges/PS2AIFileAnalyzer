@@ -223,11 +223,16 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
 
 
             this.aiResult = formattedText;
-            this.showToastMessage(
-                'AI Analysis Complete',
-                'The AI-powered analysis is now ready!',
-                'success'
-            );
+
+            /*
+            if (this.aiResult != null && !this.aiResult.startsWith('Error:')) {
+                this.showToastMessage(
+                    'AI Analysis Complete',
+                    'The AI-powered analysis is now ready!',
+                    'success'
+                );
+            }
+                */
         } catch (err) {
             this.errorMessage =
                 (err && err.body && err.body.message) ||
@@ -239,7 +244,7 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
             );
         } finally {
             this.isAnalyzing = false;
-            this.disableAnalyzeButton = true;
+            //this.disableAnalyzeButton = true;
         }
     }
 

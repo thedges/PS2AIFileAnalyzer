@@ -84,6 +84,16 @@ public without sharing class PS2AIFileAnalyzerController {
   @AuraEnabled(cacheable=false)
   public static String getRecordDocuments(String recordId) {
     List<Map<String, Object>> options = new List<Map<String, Object>>();
+    List<Id> idList = new List<Id>();
+
+    idList.add(recordId);
+
+    List<EmailMessage> emails = [SELECT Id FROM EmailMessage WHERE RelatedToId = :recordId AND HasAttachment=true];
+    if (emails != null && emails.size() > 0) {
+      for (EmailMessage email : emails) {
+        idList.add(email.Id);
+      }
+    }
 
     List<ContentDocumentLink> links = [
       SELECT
@@ -99,7 +109,7 @@ public without sharing class PS2AIFileAnalyzerController {
         Visibility,
         ContentDocument.IsArchived
       FROM ContentDocumentLink
-      WHERE LinkedEntityId = :recordId AND IsDeleted = FALSE AND ContentDocument.IsArchived = FALSE
+      WHERE LinkedEntityId IN :idList AND IsDeleted = FALSE AND ContentDocument.IsArchived = FALSE
     ];
 
     for (ContentDocumentLink link : links) {
