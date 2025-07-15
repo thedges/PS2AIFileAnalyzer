@@ -107,7 +107,12 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
             .then(result => {
                 console.log(result);
                 this.fileOptions = JSON.parse(result);
-                if (docId != null) this.fileSelection = docId;
+                if (docId != null) {
+                    this.fileSelection = docId;
+                }
+                else if (this.fileOptions != null && this.fileOptions.length == 1) {
+                    this.fileSelection = this.fileOptions[0].value;
+                }
             })
             .catch(error => {
                 console.log(error);
@@ -265,9 +270,14 @@ export default class Ps2AIFileAnalyzer extends LightningElement {
 
         storeAIAnalysis({ recordId: this.recordId, analysisResult: tmpRes, fieldName: this.recFieldname })
             .then(result => {
+                console.log('1');
                 this.aiResult = '';
+                console.log('2');
                 this.dispatchEvent(new RefreshEvent());    // refresh record screen to show updated values
-                this.showSimpleActionToast('Added to ' + this.objectName);
+                eval("$A.get('e.force:refreshView').fire();");
+                console.log('3');
+                //this.showSimpleActionToast('Added to ' + this.objectName);
+                //console.log('4');
             })
             .catch(error => {
                 console.log(error);

@@ -73,12 +73,23 @@ public without sharing class PS2AIFileAnalyzerController {
 
     String objectName = getObjectName(recordId);
 
-    SObject newObj = (SObject) Type.forName(objectName).newInstance();
+    if (objectName == 'ContentDocument') {
+      ContentDocument doc = [SELECT Id, Title, FileType, ContentSize, LatestPublishedVersionId FROM ContentDocument WHERE Id = :recordId];
+      SObject newObj = (SObject) Type.forName('ContentVersion').newInstance();
 
-    newObj.put('Id', recordId);
-    newObj.put(fieldName, analysisResult);
+       newObj.put('Id', doc.LatestPublishedVersionId);
+       newObj.put(fieldName, analysisResult);
 
-    update newObj;
+       update newObj;
+    }
+    else {
+        SObject newObj = (SObject) Type.forName(objectName).newInstance();
+
+        newObj.put('Id', recordId);
+        newObj.put(fieldName, analysisResult);
+
+        update newObj;
+    }
   }
 
   @AuraEnabled(cacheable=false)
@@ -86,8 +97,28 @@ public without sharing class PS2AIFileAnalyzerController {
     List<Map<String, Object>> options = new List<Map<String, Object>>();
     List<Id> idList = new List<Id>();
 
+    String objectName = getObjectName(recordId);
+
     idList.add(recordId);
 
+    if (objectName == 'ContentDocument') {
+        ContentDocument doc = [SELECT Id, Title, FileType, ContentSize, LatestPublishedVersionId FROM ContentDocument WHERE Id = :recordId];
+        if (doc != null) {
+          Map<String, Object> tempMap = new Map<String, Object>();
+      tempMap.put('value', doc.Id);
+      tempMap.put(
+        'label',
+        doc.Title +
+          ' (' +
+          doc.FileType +
+          ' - ' +
+          (doc.ContentSize / 1024.0).setScale(1) +
+          ' KB)'
+      );
+      options.add(tempMap);
+        }
+    }
+    else {
     List<EmailMessage> emails = [SELECT Id FROM EmailMessage WHERE RelatedToId = :recordId AND HasAttachment=true];
     if (emails != null && emails.size() > 0) {
       for (EmailMessage email : emails) {
@@ -125,7 +156,9 @@ public without sharing class PS2AIFileAnalyzerController {
           ' KB)'
       );
       options.add(tempMap);
+    }      
     }
+
 
     System.debug(JSON.serialize(options));
     return JSON.serialize(options);
